@@ -1,35 +1,76 @@
 <template>
-  <div>
-      <h1>This is my first VueJS project</h1>
-  <RouterView />
-  </div>
+  <!-- Category Item -->
+   <section>
+     <div style="display: flex; gap: 10px;">
+<CategoryItem
+v-for="(item,i) in categoryItems" :key="i"
+:title="item.title "
+:img="item.img"
+:color="item.color"
+:num="item.num"
+/>
+</div>
+  
 
-</template>
-<!-- package: small software or library that developer is builded -->
- <!-- devDependencies: use when compile -->
-  <!-- dependencies: use when run code -->
-   <!-- node_modules: 
-    example: why pinia appears in node_modules and in dependencies?
-    pinia in  dependencies is depended on pinia in node_modules
+
+
+<!-- Promation Component -->
+<div style="display: flex; gap: 15px;">
+ <PromotionItem v-for="(item,i) in promotionItems" :key="i"
+ :title="item.title"
+:img="item.img"
+:color="item.color"
+ 
+ 
+ 
+ />
+</div>
+   </section>
    
-   -->
-    <!-- vite.config.js : used to compile js code to host -->
-     <!-- 400-405 = error from user -->
-      <!-- 500-505 = error from sever -->
-       <!-- There are two ways to import components -->
-        <!-- 1. Static import: will bundle the component when the app is built.(All components are loaded at the same time) 
-        + pro: All components are loaded at the same time, which can be useful if the app is small.
-        + con: Increases the initial load time because all components are bundled together. 
-        -->
-         <!-- 2. Lazy loading(dynamic import): load the component only when the route is visited.(useful for larger app)
-         + pro: Only loads components when needed, leading to better performance, especially for larger apps.
-         + con: Requires a network request when the component is loaded for the first time, which can lead to a slight delay.
-         -->
-         <!-- git: 
-          + 
-         
-         -->
-          <!-- https vs ssh:
-          https: 
-          ssh: key for your own computer  
-          -->
+
+
+
+<router-view></router-view>
+</template>
+
+<script>
+import CategoryItem from './components/CategoryItem.vue';
+import PromotionItem from './components/PromotionItem.vue';
+export default {
+components:{
+  CategoryItem,
+  PromotionItem,
+},
+data(){
+  return {
+    categoryItems:[
+        {
+          title: "Apple",
+          img: "src/assets/img/apple.png",
+          color:"#FFB38E",
+          num: 1,
+        },
+        {
+          title: "Banana",
+          img: "src/assets/img/banana.png",
+          color:"#B1D690",
+          num: 2,
+        },
+      ],
+      promotionItems:[
+      {
+        title: 'Everyday Fresh & Clean with Our Products',
+        img:  '/src/assets/img/banana.png',
+        color: 'skyblue',
+    },
+    {
+        title: 'Make your Breakfast Healthy and Easy',
+        img:  '/src/assets/img/apple.png',
+        color: 'pink'
+    }
+      ],
+  }
+      
+}
+}
+</script>
