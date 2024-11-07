@@ -8,6 +8,7 @@ v-for="(item,i) in categoryItems" :key="i"
 :img="item.img"
 :color="item.color"
 :num="item.num"
+
 />
 </div>
   
@@ -20,7 +21,7 @@ v-for="(item,i) in categoryItems" :key="i"
  :title="item.title"
 :img="item.img"
 :color="item.color"
- 
+
  
  
  />
@@ -68,9 +69,22 @@ data(){
         img:  '/src/assets/img/apple.png',
         color: 'pink'
     }
+
       ],
   }
       
-}
+},
+mounted() {
+    axios
+      .get('https://api.example.com/data') // Replace with your API endpoint
+      .then(response => {
+        this.data = response.data;
+        this.loading = false;
+      })
+      .catch(error => {
+        console.error('There was an error fetching data:', error);
+        this.loading = false;
+      });
+  },
 }
 </script>

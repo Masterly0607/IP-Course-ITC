@@ -4,6 +4,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
+
 // Quasar framework of VueJS
 import { Quasar, QBtn,QCard } from 'quasar';
 import 'quasar/src/css/index.sass';

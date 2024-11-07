@@ -5,7 +5,7 @@
          <div class="col-6">
             <div style=" height: 100px;">
                 <div class="text-h7">{{ title }}</div>
-                <button-component/>
+                <button-component @click="shopNow()"/>
             </div>
           
          </div>
@@ -70,6 +70,11 @@ export default{
         title: String,
       img: String,
       color: String,
+    },
+    methods:{
+        shopNow(){
+            alert("Let's shop: "+ this.title )
+        }
     }
 }
 
