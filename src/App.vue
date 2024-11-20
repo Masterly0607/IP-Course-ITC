@@ -4,10 +4,10 @@
      <div style="display: flex; gap: 10px;">
 <CategoryItem
 v-for="(item,i) in categoryItems" :key="i"
-:title="item.title "
-:img="item.img"
+:title="item.name "
+:img="item.image"
 :color="item.color"
-:num="item.num"
+:num="item.productCount"
 
 />
 </div>
@@ -19,7 +19,7 @@ v-for="(item,i) in categoryItems" :key="i"
 <div style="display: flex; gap: 15px;">
  <PromotionItem v-for="(item,i) in promotionItems" :key="i"
  :title="item.title"
-:img="item.img"
+:img="item.image"
 :color="item.color"
 
  
@@ -31,12 +31,13 @@ v-for="(item,i) in categoryItems" :key="i"
 
 
 
-<router-view></router-view>
+
 </template>
 
 <script>
 import CategoryItem from './components/CategoryItem.vue';
 import PromotionItem from './components/PromotionItem.vue';
+import axios  from 'axios';
 export default {
 components:{
   CategoryItem,
@@ -44,47 +45,41 @@ components:{
 },
 data(){
   return {
-    categoryItems:[
-        {
-          title: "Apple",
-          img: "src/assets/img/apple.png",
-          color:"#FFB38E",
-          num: 1,
-        },
-        {
-          title: "Banana",
-          img: "src/assets/img/banana.png",
-          color:"#B1D690",
-          num: 2,
-        },
-      ],
-      promotionItems:[
-      {
-        title: 'Everyday Fresh & Clean with Our Products',
-        img:  '/src/assets/img/banana.png',
-        color: 'skyblue',
-    },
-    {
-        title: 'Make your Breakfast Healthy and Easy',
-        img:  '/src/assets/img/apple.png',
-        color: 'pink'
-    }
-
-      ],
-  }
-      
+      // Variables to store data that fetch from the API.
+      categoryItems:[], 
+      promotionItems:[],
+  }   
 },
-mounted() {
-    axios
-      .get('https://api.example.com/data') // Replace with your API endpoint
-      .then(response => {
-        this.data = response.data;
-        this.loading = false;
-      })
-      .catch(error => {
-        console.error('There was an error fetching data:', error);
-        this.loading = false;
-      });
+methods: {
+  // Methods to fetch data from the API.
+  
+  fetchCategories(){
+    axios.get('http://localhost:3000/api/categories')
+    .then ( response => {
+      this.categoryItems = response.data; // Store the API response in categoryItems
+    })
+    .catch(error => {
+      console.error("Error fetching categories:", error);
+    })
   },
+  fetchPromotions(){
+    axios.get('http://localhost:3000/api/promotions')
+    .then ( response => {
+      this.promotionItems = response.data; // Store the API response in categoryItems
+    })
+    .catch(error => {
+      console.error("Error fetching promotions:", error);
+    })
+  },
+
+},
+mounted(){
+     this.fetchCategories();
+     this.fetchPromotions();
+
+   
+    
+}
+
 }
 </script>

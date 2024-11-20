@@ -8,7 +8,7 @@
                 <button-component @click="shopNow()"/>
             </div>
           
-         </div>
+         </div> 
 
          <!-- Img box -->
           <div class="img-box col-6">
