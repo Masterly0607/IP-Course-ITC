@@ -1,9 +1,9 @@
 <template>
   
   <div>
-       <div :style="{backgroundColor:color}" class="category-item">
+       <div  class="category-item">
       <div class="category-img">
-      <img :src="img" style="width: 100%; height: 100%; object-fit: cover; "/>
+      <img :src="'http://localhost:3000/'+ image" style="width: 100%; height: 100%; object-fit: cover; "/>
       </div>
      
       <h3>{{ title }}</h3>
