@@ -28,10 +28,10 @@
   </template>
   
   <script>
-  import { useProductStore } from './stores/product';
-  import CategoryItem from './components/CategoryItem.vue';
-  import PromotionItem from './components/PromotionItem.vue';
-  import ProductComponent from './components/ProductComponent.vue';
+  import { useProductStore } from '@/stores/product.js';
+  import CategoryItem from '@/components/CategoryItem.vue';
+  import PromotionItem from '@/components/PromotionItem.vue';
+  import ProductComponent from '@/components/ProductComponent.vue';
   
   export default {
     components: {
