@@ -40,9 +40,12 @@
       <menu-component title="Popular Product"></menu-component>
      </div>
     <!-- Popular Products Section -->
-    <div class="">
+    <div class="flex gap-5">
      
+
+      
       <ProductComponent
+    
         v-for="(product, index) in popularProducts"
         :product="product"
         :key="index"
