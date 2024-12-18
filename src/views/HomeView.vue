@@ -1,86 +1,109 @@
 <template>
-    <section>
-      <!-- Categories -->
-      <div v-if="categories.length" style="display: flex; gap: 10px; margin-bottom: 20px;">
-        <CategoryItem
+  <section class="flex flex-col gap-16 px-20 ">
+ 
+    <!-- Menu Component -->
+     <div>
+      <menu-component
+      title="Featured Categories"
+      ></menu-component>
+     </div>
+    
      
-          
-        />
-      </div>
+    
+
+  <!-- Categories -->
+     <div>
+    <div class="flex gap-5 ">
+      <CategoryItem
+        v-for="(category, index) in categoriesItem"
+        :key="index"
+        :category="category"
+      />
+    </div>
+
+     </div>
+ 
+    <!-- Promotions  -->
   
-      <!-- Promotions  -->
-      <div v-if="promotionItems.length" style="display: flex; gap: 15px; margin-bottom: 20px;">
+    <div class="flex gap-5">
+     
         <PromotionItem
-          v-for="(item, i) in promotionItems"
-          :key="i"
-          :title="item.title"
-          :img="item.image"
-          :color="item.color"
-        />
-      </div>
-  
-  
-      <!-- Popular Products Section -->
-      <div v-if="popularProducts.length" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
-        <ProductComponent v-for="(product, index) in popularProducts" :product="product" :key="index"/>
-      </div>
-    </section>
-  </template>
-  
-  <script>
-  import { useProductStore } from '@/stores/product.js';
-  import CategoryItem from '@/components/CategoryItem.vue';
-  import PromotionItem from '@/components/PromotionItem.vue';
-  import ProductComponent from '@/components/ProductComponent.vue';
-  
-  export default {
-    components: {
-      CategoryItem,
-      PromotionItem,
-      ProductComponent
-    },
-    data() {
-      return {
-        currentGroupName: 'Milks & Diaries', // Example default group name
-        currentCategoryId: 1, // Example default category ID
-      };
-    },
-    async mounted() {
+        
+      v-for="(promotion, index) in promotionItems"
+      :key="index"
+      :promotion="promotion"
+      />
+     
+     
+    </div>
+    <div>
+      <menu-component title="Popular Product"></menu-component>
+     </div>
+    <!-- Popular Products Section -->
+    <div class="">
+     
+      <ProductComponent
+        v-for="(product, index) in popularProducts"
+        :product="product"
+        :key="index"
+      />
+    </div>
+  </section>
+</template>
+
+<script>
+import { useProductStore } from "@/stores/product.js";
+import CategoryItem from "@/components/CategoryItem.vue";
+import PromotionItem from "@/components/PromotionItem.vue";
+import ProductComponent from "@/components/ProductComponent.vue";
+import MenuComponent from '@/components/MenuComponent.vue';
+
+export default {
+  components: {
+    CategoryItem,
+    PromotionItem,
+    ProductComponent,
+    MenuComponent,
+  },
+  data() {
+    return {
+      currentGroupName: "Milks & Diaries", // Example default group name
+      currentCategoryId: 1, // Example default category ID
+    };
+  },
+  async mounted() {
+    const store = useProductStore();
+    await store.fetchCategories();
+    await store.fetchPromotions();
+    await store.fetchProducts();
+    await store.fetchGroups();
+
+    console.log("Categories:", store.categories);
+    console.log("Promotions:", store.promotions);
+    console.log("Products:", store.products);
+    console.log("Groups:", store.groups);
+  },
+  computed: {
+    // Fetch promotions
+    promotionItems() {
       const store = useProductStore();
-      await store.fetchCategories();
-      await store.fetchPromotions();
-      await store.fetchProducts();
-      await store.fetchGroups();
-  
-      console.log('Categories:', store.categories);
-      console.log('Promotions:', store.promotions);
-      console.log('Products:', store.products);
-      console.log('Groups:', store.groups);
+      return store.promotions;
     },
-    computed: {
-      // Fetch promotions
-      promotionItems() {
-        const store = useProductStore();
-        return store.promotions;
-      },
-      // Fetch categories by group
-      categories() {
-        const store = useProductStore();
-        return store.getCategoriesByGroup(this.currentGroupName);
-      },
-      // Fetch products by category
-      productsByCategory() {
-        const store = useProductStore();
-        return store.getProductsByCategory(this.currentCategoryId);
-      },
-      // Fetch popular products
-      popularProducts() {
-        const store = useProductStore();
-        return store.getPopularProducts;
-      },
+    // Fetch categories 
+    categoriesItem() {
+      const store = useProductStore();
+      return store.categories;
     },
-  };
-  </script>
-  
-  
-  
+    // Fetch products by category
+    productsByCategory() {
+      const store = useProductStore();
+      return store.getProductsByCategory(this.currentCategoryId);
+    },
+    // Fetch popular products
+    popularProducts() {
+      const store = useProductStore();
+      return store.getPopularProducts;
+    },
+  },
+};
+</script>

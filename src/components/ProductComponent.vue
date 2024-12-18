@@ -1,12 +1,19 @@
 <template>
-    <div
-        class="product-card"
-        style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; width: 150px; text-align: center;"
-      >
-        <img :src="image" alt="Popular Product Image" style="width: 100%; height: auto;" />
-        <h4>{{ product.name }}</h4>
-        <p>Sold: {{ product.countSold }}</p>
+    <section >
+        <div>
+      <div class="w-36 h-48 rounded-2xl border">
+        <div
+          class="flex flex-col items-center justify-between p-5 h-full w-full"
+            :style="{ backgroundColor: product.color }"
+        >
+          <img :src="image" alt="Popular Product Img" class="w-full h-auto" />
+          <div>{{ product.name }}</div>
+          <div>{{ product.productCount }} items</div>
+        </div>
       </div>
+    </div> 
+    </section>
+  
 </template>
 
 <script>

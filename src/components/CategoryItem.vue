@@ -1,49 +1,41 @@
 <template>
-  
-  <div>
-       <div  class="category-item">
-      <div class="category-img">
-      <img :src="'http://localhost:3000/'+ image" style="width: 100%; height: 100%; object-fit: cover; "/>
+  <section>
+    <div>
+      <div class="w-36 h-48 rounded-2xl">
+        <div
+          class="flex flex-col items-center rounded-2xl justify-between p-5 h-full w-full"
+        :style="{ backgroundColor: category.color }"
+        >
+          <img :src="image" alt="Category Img" class="w-full h-[50%]" />
+          <div class="font-bold">{{ category.name }}</div>
+          <div class="text-gray-500 text-xs">{{ category.productCount }} items</div>
+        </div>
       </div>
-     
-      <h3>{{ title }}</h3>
-      <p style="color: gray; font-size: 10px;">{{ num }} items</p>
     </div>
-  </div>
-  
+  </section>
+</template>
+<script>
+export default {
+  props: {
+    category: {
+      type: Object,
+      required: true,
+    },
+  },
+  computed: {
+    image() {
+      try {
+        const images = JSON.parse(this.category.image);
+        if (Array.isArray(images) && images.length > 0) {
+          return "http://localhost:3000/" + images[0];
+        }
+      } catch (e) {
+        return "http://localhost:3000/" + this.category.image;
+      }
+      return "";
+    },
+  },
+};
+</script>
 
-   
-  </template>
-  <script>
-   export default {
-    props:{
-      title: String,
-      img: String,
-      color: String,
-      num: Number,
-  
-    }
-   }
-  
-  
-  </script>
-  <style>
-  .category-item{
-    padding: 30px;
-    width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    
-    
-    
-    
-  }
-  .category-img{
-    width: 100px;
-    height: 100px;
-  }
-</style>
+<style></style>
