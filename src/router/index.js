@@ -1,35 +1,24 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
+const routes = [
+  {
+    path: '',
+    component: () => import('@/layouts/MainLayout.vue'),
+    children: [
+      {
+        // This tells Vue Router that any URL matching /some-value should render the PageComponent.vue component, with some-value stored in route.params.pageId.
+        path: '/:pageId', // Dynamic route
+        component: () => import('@/components/PageComponent.vue'), 
+       
+       
+      },
+    ],
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-        {
-         path: '/',
-         redirect:'/page-one',
-         component: () => import ('@/layouts/MainLayout.vue'),
-         children:[
-          {
-            path:'page-one',
-            name: 'page-one',
-            component: () => import ('@/pages/PageOne.vue'),
+  routes,
+});
 
-          },
-          {
-            path:'page-two',
-            name: 'page-two',
-            component: () => import ('@/pages/PageTwo.vue'),
-
-          },
-          {
-            path:'page-three',
-            name: 'page-three',
-            component: () => import ('@/pages/PageThree.vue'),
-
-          },
-         ]
-        }
-  ],
-})
-
-export default router
+export default router;
