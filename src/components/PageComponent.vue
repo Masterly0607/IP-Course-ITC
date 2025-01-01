@@ -1,7 +1,8 @@
 <template>
-  <div class="p-4 flex justify-center items-center flex-col min-h-screen">
-    <h1 class="text-3xl font-bold mb-4">Welcome to {{ pageTitle }}</h1>
-    <router-view />
+  <div class="flex justify-center items-center min-h-screen flex-col">
+    <h1 class="text-2xl font-bold">Welcome to {{ pageTitle }}</h1>
+
+    <router-view /> <!-- Dynamically renders SectionComponent -->
   </div>
 </template>
 
@@ -10,7 +11,16 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const pageTitle = computed(() => route.params.pageId);
-// route.params = is an object in Vue Router that stores the values of dynamic segments (placeholders) in the current URL, allowing you to access and use them in your components.
+const pageTitle = computed(() => {
+  switch (route.params.page) {
+    case 'page-one':
+      return 'Page 1';
+    case 'page-two':
+      return 'Page 2';
+    case 'page-three':
+      return 'Page 3';
+    default:
+      return 'Unknown Page';
+  }
+});
 </script>
-

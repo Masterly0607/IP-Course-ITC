@@ -2,15 +2,18 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
   {
-    path: '',
-    component: () => import('@/layouts/MainLayout.vue'),
+    path: '/:page', // Dynamic page parameter
+    component: () => import('@/layouts/MainLayout.vue'), // Layout for all pages
     children: [
       {
-        // This tells Vue Router that any URL matching /some-value should render the PageComponent.vue component, with some-value stored in route.params.pageId.
-        path: '/:pageId', // Dynamic route
-        component: () => import('@/components/PageComponent.vue'), 
-       
-       
+        path: '', // Default route for the page
+        component: () => import('@/components/PageComponent.vue'), // Page-level content
+        children: [
+          {
+            path: 'section/:section', // Nested dynamic route for sections
+            component: () => import('@/components/SectionComponent.vue'), // Component for sections
+          },
+        ],
       },
     ],
   },
