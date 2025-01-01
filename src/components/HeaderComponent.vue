@@ -1,35 +1,21 @@
 <template>
     <header class="bg-blue-600 text-white p-4">
-      
-      <nav class="flex justify-between">
-        <div>
-            Header
-        </div>
+      <nav>
         <ul class="flex space-x-4">
           <li>
-            <router-link
-              to="/page-one"
-              class="hover:underline"
-              exact-active-class="font-bold underline"
-            >
+            <router-link :to="{ path: `/Page1`, query: { message: 'hello' } }" 
+            class="hover:underline">
               Page 1
             </router-link>
           </li>
+          <!-- query: { message: 'hello' }  = Sets a new query parameter(message is parameter) and become ?message=hello -->
           <li>
-            <router-link
-              to="/page-two"
-              class="hover:underline"
-              exact-active-class="font-bold underline"
-            >
+            <router-link :to="{ path: '/Page2', query: { message: 'bye' } }" class="hover:underline">
               Page 2
             </router-link>
           </li>
           <li>
-            <router-link
-              to="/page-three"
-              class="hover:underline"
-              exact-active-class="font-bold underline"
-            >
+            <router-link :to="{ path: '/Page3' }" class="hover:underline">
               Page 3
             </router-link>
           </li>

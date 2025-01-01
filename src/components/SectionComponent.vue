@@ -1,7 +1,7 @@
 <template>
     <div>
       <h2 class="text-xl">This is Section {{ sectionNumber }} of {{ pageTitle }}</h2>
-
+      <p v-if="message">Message: {{ message }}</p>
     </div>
   </template>
   
@@ -10,19 +10,9 @@
   import { useRoute } from 'vue-router';
   
   const route = useRoute();
-  const pageTitle = computed(() => {
-  switch (route.params.page) {
-    case 'page-one':
-      return 'Page 1';
-    case 'page-two':
-      return 'Page 2';
-    case 'page-three':
-      return 'Page 3';
-    default:
-      return 'Unknown Page';
-  }
-});
+  
+  const pageTitle = computed(() => route.params.page);
   const sectionNumber = computed(() => route.params.section);
-
+  const message = computed(() => route.query.message); // Get query parameter
   </script>
   

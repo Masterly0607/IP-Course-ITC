@@ -23,8 +23,5 @@
   import FooterComponent from '@/components/FooterComponent.vue';
   import MenuComponent from '@/components/MenuComponent.vue';
   </script>
-  
-  <style scoped>
-  /* Custom styles for layout */
-  </style>
+
   

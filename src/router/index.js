@@ -2,16 +2,16 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
   {
-    path: '/:page', // Dynamic page parameter
-    component: () => import('@/layouts/MainLayout.vue'), // Layout for all pages
+    path: '', 
+    component: () => import('@/layouts/MainLayout.vue'), 
     children: [
       {
-        path: '', // Default route for the page
-        component: () => import('@/components/PageComponent.vue'), // Page-level content
+        path: '/:page',
+        component: () => import('@/components/PageComponent.vue'),
         children: [
           {
-            path: 'section/:section', // Nested dynamic route for sections
-            component: () => import('@/components/SectionComponent.vue'), // Component for sections
+            path: 'section/:section',
+            component: () => import('@/components/SectionComponent.vue'), 
           },
         ],
       },
